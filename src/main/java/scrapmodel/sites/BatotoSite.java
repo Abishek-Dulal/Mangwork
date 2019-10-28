@@ -1,4 +1,4 @@
-package scrapmodel;
+package scrapmodel.sites;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class BatotoSite implements ScrapSite {
     @Override
-    public Map seachByAuthorOrBookname(Document doc) {
+    public Map searchByAuthorOrBookname(Document doc) {
         Element serieslist_container = doc.getElementById("series-list");
         Elements serieslist =serieslist_container.getElementsByClass("col-24 item hairlines-bottom is-hot no-flag");
         Map  contlist  = new HashMap();
@@ -33,5 +33,10 @@ public class BatotoSite implements ScrapSite {
         downloadlist.add("thumb-image");
         contlist.put("downloadable",downloadlist);
         return contlist;
+    }
+
+    @Override
+    public Map searchByGenres(Document document) {
+        return null;
     }
 }
