@@ -1,10 +1,11 @@
 package scrapper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jsoup.nodes.Document;
+import scrapmodel.BatotoSite;
 
-import java.util.HashMap;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /*
     {
@@ -33,19 +34,26 @@ import java.util.Set;
 
 public class PageProcessor {
 
-    public <K,V> Optional<HashMap<K,V>> processPage(Document document, HashMap PropertyCritearea){
+    private ObjectMapper objectMapper;
 
-        process(document,PropertyCritearea,null);
-
-        return Optional.empty();
+    public PageProcessor() {
+        objectMapper= new ObjectMapper();
     }
 
-    private HashMap  process(Document Document,HashMap propertymap,HashMap resultmap){
+    public <K,V> Optional<Map> processPage(Document document, String PropertyCriteareaJSON) throws JsonProcessingException {
+
+        Map resultMap = new HashMap();
 
 
 
-       return null;
+
+        new BatotoSite().seachByAuthorOrBookname(document);
+        return Optional.ofNullable(resultMap);
     }
+
+
+
+
 
 
 }
