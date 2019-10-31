@@ -1,15 +1,15 @@
 package scrapmodel.query;
 
-import java.util.Optional;
+import scrapmodel.MangaSites;
 
 public class QueryFactory {
 
-    public  static Optional<QueryCreator> getSiteQuery(String site){
+    public  static QueryCreator getSiteQuery(MangaSites site){
         switch (site){
-            case "bato":
-             return  Optional.of(new BatotoQuery());
+            case BATO:
+             return  new BatotoQuery();
 
         }
-        return Optional.ofNullable(null);
+        return null;
     }
 }

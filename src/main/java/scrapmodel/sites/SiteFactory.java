@@ -1,16 +1,16 @@
 package scrapmodel.sites;
 
-import java.util.Optional;
+import scrapmodel.MangaSites;
 
 public class SiteFactory {
 
-    public static Optional<ScrapSite>  getSite(String site){
+    public static ScrapSite  getSite(MangaSites site){
         switch (site){
-            case "bato":
-                return  Optional.of(new BatotoSite() );
+            case BATO:
+                return  new BatotoSite() ;
 
         }
-        return  Optional.ofNullable(null);
+        return  null;
     }
 
 
