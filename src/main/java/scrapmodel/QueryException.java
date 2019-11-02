@@ -1,4 +1,4 @@
-package scrapmodel.query;
+package scrapmodel;
 
 public class QueryException extends  Exception {
 
