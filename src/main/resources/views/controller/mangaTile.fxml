@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox alignment="CENTER" prefHeight="194.0" prefWidth="177.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="titleText" alignment="CENTER" prefHeight="17.0" prefWidth="178.0" text="Label" />
+      <ImageView fx:id="mangaImage" fitHeight="152.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true" />
+      <HBox prefHeight="22.0" prefWidth="177.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="30.0" prefWidth="138.0" text="Latest chapter" />
+            <Label fx:id="latestChText" prefHeight="30.0" prefWidth="40.0" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
