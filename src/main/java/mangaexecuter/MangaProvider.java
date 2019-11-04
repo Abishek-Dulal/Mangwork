@@ -25,6 +25,7 @@ public class MangaProvider {
                 String title = ((String)resultval.get("title")).replaceAll("[^a-zA-Z0-9]", "");
 
                 URLConnection connection = new URL("https:"+s).openConnection();
+
                 connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
                 System.out.println("https:"+s);
                 ReadableByteChannel readableByteChannel = Channels.newChannel(connection.getInputStream());

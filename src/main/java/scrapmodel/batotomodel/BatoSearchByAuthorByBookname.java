@@ -37,7 +37,7 @@ public class BatoSearchByAuthorByBookname extends AbstractMangaScrapper {
             String title =element.getElementsByClass("item-title").get(0).text();
             String chap = element.getElementsByClass("item-volch").get(0).text();
             String seriesLink = element.getElementsByClass("item-cover").get(0).attr("href");
-            String thumbimage = element.getElementsByClass("item-cover").get(0).getElementsByTag("img").attr("src");
+            String thumbimage = "https:" + element.getElementsByClass("item-cover").get(0).getElementsByTag("img").attr("src");
             seriesval.put("title",title);
             seriesval.put("latest-chapter",chap);
             seriesval.put("series-link",seriesLink);

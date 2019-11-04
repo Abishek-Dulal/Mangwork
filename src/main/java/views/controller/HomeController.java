@@ -17,9 +17,9 @@ import scrapmodel.QueryException;
 import views.MangaMain;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 
 public class HomeController {
@@ -33,6 +33,9 @@ public class HomeController {
     @FXML
     private TextField searchField;
 
+
+    private TilePane tilePane;
+
     @FXML
     public  void initialize(){
         setSearchFieldAction();
@@ -42,31 +45,17 @@ public class HomeController {
 
 
     private void  setSearchFieldAction(){
-        searchButton.setOnAction(this::doSearch);
-        searchField.setOnAction(this::doSearch);
-
+        searchButton.setOnAction(this::setTilePane);
+        searchField.setOnAction(this::setTilePane);
     }
 
 
     private void initialiseTilePane(){
-        final TilePane tilePane = new TilePane();
+        tilePane = new TilePane();
         tilePane.setAlignment(Pos.TOP_CENTER);
         tilePane.setStyle("-fx-background-color:red");
         tilePane.setHgap(10);
         tilePane.setVgap(10);
-
-        IntStream.rangeClosed(0,100).forEach(i->{
-            MangaTileController mangaTileController = new MangaTileController("loxo"+i+"i+" , i+"");
-            try {
-             Node node = MangaTileController.getMangaTile(mangaTileController);
-             tilePane.getChildren().add(node);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-
-
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(tilePane);
@@ -82,26 +71,47 @@ public class HomeController {
         tilePane.prefWidthProperty().bind(scrollPane.widthProperty().subtract(15));
         tilePane.prefHeightProperty().bind(scrollPane.heightProperty());
 
-
-
         homeAnchor.getChildren().add(scrollPane);
 
     }
 
-    private void doSearch(ActionEvent event){
-        if(searchField.getText().isEmpty() ){
+    public void setTilePane(ActionEvent event){
+        Map  tilepaneMap = doSearch(event);
+        if(tilepaneMap == null){
             return;
+        }
+
+        System.out.println(tilepaneMap);
+
+        ((ArrayList)tilepaneMap.get("result")).stream().forEach(i->{
+             Map res = (Map)i;
+             MangaTileController controller = new MangaTileController(res);
+            try {
+               Node node  = MangaTileController.getMangaTile(controller);
+               tilePane.getChildren().add(node);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+
+    }
+
+    private Map doSearch(ActionEvent event){
+        if(searchField.getText().isEmpty() ){
+            return null;
         }
         Map<String,String>  property = new HashMap<>();
         property.put("bookname",searchField.getText());
+
         try {
-            System.out.println(MangaFetcherFactory.getMangasite("bato").getSearchByAuthorOrBookName().getMangaData(property));
+            return MangaFetcherFactory.getMangasite("bato").getSearchByAuthorOrBookName().getMangaData(property);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (QueryException e) {
             e.printStackTrace();
         }
-
+        return null;
     }
 
 
