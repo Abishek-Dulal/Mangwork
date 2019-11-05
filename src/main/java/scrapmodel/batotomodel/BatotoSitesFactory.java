@@ -12,4 +12,9 @@ public class BatotoSitesFactory implements InterfaceSitesFactory {
         return new BatoSearchByAuthorByBookname();
     }
 
+    @Override
+    public MangaScrapper getChapterload() {
+        return new BatoLoadChapter();
+    }
+
 }

@@ -26,6 +26,7 @@ public class BatoSearchByAuthorByBookname extends AbstractMangaScrapper {
         return sitename +"/" +"search?"+ manganame+"&"+author+"&"+pageNumber;
     }
 
+    //latest-chapter-link
     @Override
     protected Map processPage(Document doc) {
         Element serieslist_container = doc.getElementById("series-list");
@@ -36,12 +37,14 @@ public class BatoSearchByAuthorByBookname extends AbstractMangaScrapper {
             Map<String, String> seriesval = new HashMap<>();
             String title =element.getElementsByClass("item-title").get(0).text();
             String chap = element.getElementsByClass("item-volch").get(0).text();
+            String chaplink = element.getElementsByClass("item-volch").get(0).getElementsByTag("a").attr("href");
             String seriesLink = element.getElementsByClass("item-cover").get(0).attr("href");
             String thumbimage = "https:" + element.getElementsByClass("item-cover").get(0).getElementsByTag("img").attr("src");
             seriesval.put("title",title);
             seriesval.put("latest-chapter",chap);
             seriesval.put("series-link",seriesLink);
             seriesval.put("thumb-image",thumbimage);
+            seriesval.put("latest-chapter-link",chaplink);
             result.add(seriesval);
         }
         contlist.put("result",result);

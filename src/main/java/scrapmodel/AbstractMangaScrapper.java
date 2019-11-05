@@ -13,7 +13,7 @@ public  abstract class AbstractMangaScrapper implements MangaScrapper {
         return processPage(scrapManga(getMangaQuery(properties)));
     }
 
-    private Document scrapManga(String query) throws IOException {
+    protected Document scrapManga(String query) throws IOException {
        return Jsoup.connect(query).get();
     }
 

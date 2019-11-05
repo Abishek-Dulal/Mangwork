@@ -81,7 +81,7 @@ public class HomeController {
             return;
         }
 
-        System.out.println(tilepaneMap);
+        tilePane.getChildren().clear();
 
         ((ArrayList)tilepaneMap.get("result")).stream().forEach(i->{
              Map res = (Map)i;

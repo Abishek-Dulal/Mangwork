@@ -4,26 +4,32 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import scrapmodel.MangaFetcherFactory;
+import scrapmodel.QueryException;
+import views.MangaMain;
 
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class MangaTileController {
 
-    private  String title ;
-    private  String latestChapter ;
-    private  String thumbUrl ;
-    private  String serieslink;
+    private final String latestChLink;
+    private final String title ;
+    private final String latestChapter ;
+    private final String thumbUrl ;
+    private final String serieslink;
 
 
     @FXML
@@ -44,34 +50,54 @@ public class MangaTileController {
         this.latestChapter = (String) i.get("latest-chapter");
         this.thumbUrl =(String) i.get("thumb-image");
         this.serieslink =(String) i.get("series-link");
+        this.latestChLink =(String) i.get("latest-chapter-link");
     }
 
    @FXML
    public void initialize() throws IOException {
         titleText.setText(title);
-        latestChText.setText(latestChapter);
+        latestChText.setText("Latest Chapter : "+latestChapter);
 
-       EventHandler e = event -> {
-           if(event.getTarget().equals(latestChText)){
-               System.out.println("hello");
-               return;
-           }
-           try {
-               downloadImage(thumbUrl,mangaImage);
-           } catch (IOException ex) {
-               ex.printStackTrace();
-           }
+        EventHandler serieshandler = e->{
+            System.out.println("banana");
+        };
+        EventHandler chaphandler = e->{
+            Map a = new HashMap();
+            a.put("latest-chapter-link",latestChLink);
+            try {
+                MangaFetcherFactory.getMangasite("bato").getChapterload().getMangaData(a);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (QueryException ex) {
+                ex.printStackTrace();
+            }
+        };
+        EventHandler mouseEnter = e->{
+            MangaMain.primaryStage.getScene().setCursor(Cursor.HAND);
+        };
+        EventHandler mouseLeave = e->{
+            MangaMain.primaryStage.getScene().setCursor(Cursor.DEFAULT);
+        };
 
-       };
+        titleText.setOnMouseClicked(serieshandler);
+        mangaImage.setOnMouseClicked(serieshandler);
+        latestChText.setOnMouseClicked(chaphandler);
 
-       homeVbox.addEventHandler(MouseEvent.MOUSE_CLICKED,e);
+        titleText.setOnMouseEntered(mouseEnter);
+        mangaImage.setOnMouseEntered(mouseEnter);
+        latestChText.setOnMouseEntered(mouseEnter);
 
-        downloadImage(thumbUrl,mangaImage);
+
+       latestChText.setOnMouseExited(mouseLeave);
+       titleText.setOnMouseExited(mouseLeave);
+       mangaImage.setOnMouseExited(mouseLeave);
+
+
+       downloadImage(thumbUrl,mangaImage);
 
    }
 
-
-     public void downloadImage(String thumlink,ImageView imageView) throws IOException {
+    public void downloadImage(String thumlink,ImageView imageView) throws IOException {
          CompletableFuture.supplyAsync(()->{
              URLConnection urlConnection = null;
              try {
@@ -96,15 +122,10 @@ public class MangaTileController {
 
      }
 
-
-
-
-
     public static  Node getMangaTile(MangaTileController mangaTileController) throws IOException {
         FXMLLoader loader = new FXMLLoader(mangaTileController.getClass().getResource("mangaTile.fxml"));
         loader.setController(mangaTileController);
         return loader.load();
-
     }
 
 }
