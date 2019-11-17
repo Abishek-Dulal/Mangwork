@@ -17,4 +17,14 @@ public class BatotoSitesFactory implements InterfaceSitesFactory {
         return new BatoLoadChapter();
     }
 
+    public  MangaScrapper getSeriesload(){
+        return  new BotoLoadSeries();
+    }
+
+    @Override
+    public MangaScrapper getLoadFrontPage() {
+        return new BatoLoadFrontPage();
+    }
+
+
 }

@@ -18,7 +18,7 @@ public class BatoLoadChapter  extends AbstractMangaScrapper {
     @Override
     protected String getMangaQuery(Map properties) throws QueryException {
         String  query = (String) properties.get("latest-chapter-link");
-        return sitename+query;
+        return sitename+"/chapter/"+query;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class BatoLoadChapter  extends AbstractMangaScrapper {
                      resultMap.put("chapterid",res.trim());
                      break;
                  case "var nextCha":
-                     if(res.equals("null") ) {
+                     if(!res.equals(" null") ) {
                          try {
                              Map nextchapMap = mapper.readValue(res,Map.class);
                              resultMap.put("nextChap",((Map)nextchapMap.get("base")).get("uniqueId"));
@@ -64,7 +64,7 @@ public class BatoLoadChapter  extends AbstractMangaScrapper {
                      }
                   break;
                  case "var prevCha":
-                     if(res.equals("null")) {
+                     if(!res.equals(" null")) {
                          try {
                              Map prechapMap = mapper.readValue(res,Map.class);
                              resultMap.put("prevChap",((Map)prechapMap.get("base")).get("uniqueId"));
@@ -73,6 +73,7 @@ public class BatoLoadChapter  extends AbstractMangaScrapper {
                              e.printStackTrace();
                          }
                      }
+                     resultMap.put("prevChap",null);
                      break;
                  case "var seriesId":
                       resultMap.put("seriesId",res);

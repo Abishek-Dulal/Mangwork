@@ -8,6 +8,7 @@ public class MangaFetcherFactory  {
         switch (sitename){
             case "bato":
                 return  new BatotoSitesFactory();
+
         }
         return null;
     }

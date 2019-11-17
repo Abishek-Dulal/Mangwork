@@ -59,13 +59,21 @@ public class MangaTileController {
         latestChText.setText("Latest Chapter : "+latestChapter);
 
         EventHandler serieshandler = e->{
-            System.out.println("banana");
+            Map prop = new HashMap();
+            prop.put("series",serieslink);
+            try {
+                MangaFetcherFactory.getMangasite("bato").getSeriesload().getMangaData(prop);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (QueryException ex) {
+                ex.printStackTrace();
+            }
         };
         EventHandler chaphandler = e->{
             Map a = new HashMap();
             a.put("latest-chapter-link",latestChLink);
             try {
-                MangaFetcherFactory.getMangasite("bato").getChapterload().getMangaData(a);
+                System.out.println(MangaFetcherFactory.getMangasite("bato").getChapterload().getMangaData(a));
             } catch (IOException ex) {
                 ex.printStackTrace();
             } catch (QueryException ex) {
