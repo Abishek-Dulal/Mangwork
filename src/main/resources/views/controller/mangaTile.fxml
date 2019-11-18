@@ -4,7 +4,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="homeVbox" alignment="CENTER" prefHeight="194.0" prefWidth="177.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="homeVbox" alignment="CENTER" prefHeight="194.0" prefWidth="177.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/8.0.211" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="titleText" alignment="CENTER" prefHeight="17.0" prefWidth="178.0" text="Label" />
       <ImageView fx:id="mangaImage" fitHeight="152.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true" />

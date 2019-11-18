@@ -7,21 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import scrapmodel.MangaFetcherFactory;
 import scrapmodel.QueryException;
 import views.MangaMain;
 
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 public class MangaTileController {
 
@@ -62,7 +56,11 @@ public class MangaTileController {
             Map prop = new HashMap();
             prop.put("series",serieslink);
             try {
-                MangaFetcherFactory.getMangasite("bato").getSeriesload().getMangaData(prop);
+                 Map seriesData = MangaFetcherFactory.getMangasite("bato").getSeriesload().getMangaData(prop);
+                 SeriesController controller = new SeriesController(seriesData);
+                 ControllerUtil.getControllerPage(controller,"seriesPage.fxml");
+
+
             } catch (IOException ex) {
                 ex.printStackTrace();
             } catch (QueryException ex) {
@@ -101,34 +99,11 @@ public class MangaTileController {
        mangaImage.setOnMouseExited(mouseLeave);
 
 
-       downloadImage(thumbUrl,mangaImage);
+       ControllerUtil.downloadImage(thumbUrl,mangaImage);
 
    }
 
-    public void downloadImage(String thumlink,ImageView imageView) throws IOException {
-         CompletableFuture.supplyAsync(()->{
-             URLConnection urlConnection = null;
-             try {
-                 urlConnection = new URL(thumlink).openConnection();
-             } catch (IOException e) {
-                 e.printStackTrace();
-             }
-             urlConnection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
-             try {
-                 return  Optional.ofNullable(new Image(urlConnection.getInputStream()));
-             } catch (IOException e) {
-                 e.printStackTrace();
-             }
-             return Optional.ofNullable(null);
-         }).thenAccept(o -> {
-             Platform.runLater(()->{
-                 if(o.isPresent()){
-                     imageView.setImage((Image) o.get());
-                 }
-             });
-         });
 
-     }
 
     public static  Node getMangaTile(MangaTileController mangaTileController) throws IOException {
         FXMLLoader loader = new FXMLLoader(mangaTileController.getClass().getResource("mangaTile.fxml"));

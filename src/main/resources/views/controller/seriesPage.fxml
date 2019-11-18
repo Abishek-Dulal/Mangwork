@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="series_imageView" fitHeight="163.0" fitWidth="200.0" layoutX="29.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="series_name_textView" layoutX="228.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="10.0" wrappingWidth="350.1367226243019">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="series_textView" layoutX="228.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="350.13671875" />
+      <ScrollPane layoutX="26.0" layoutY="186.0" prefHeight="200.0" prefWidth="559.0">
+         <content>
+            <VBox fx:id="chapters_Vbox" prefHeight="200.0" prefWidth="543.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

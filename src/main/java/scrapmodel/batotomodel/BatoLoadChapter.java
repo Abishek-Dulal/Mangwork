@@ -29,6 +29,12 @@ public class BatoLoadChapter  extends AbstractMangaScrapper {
 
         Map resultMap = new HashMap();
 
+        resultMap.put("chap-no",document.getElementsByClass("nav-chap").get(0).getElementsByAttribute("selected").text());
+        resultMap.put("series-name",document.getElementsByClass("nav-title").text());
+
+
+
+
        String[] varStrings = elementdata.split(";");
        ObjectMapper mapper = new ObjectMapper();
         for(int i= 0;i<varStrings.length-1;i++){

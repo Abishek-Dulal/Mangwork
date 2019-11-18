@@ -31,6 +31,8 @@ public class BotoLoadSeries extends AbstractMangaScrapper{
                            .getElementsByClass("main").get(0).children();
 
           Element ser=document.getElementById("series-page").getElementsByClass("item-title").get(0);
+           String img=document.getElementById("series-page").getElementsByTag("img").attr("src");
+           resultMap.put("series-image","https:"+img);
            resultMap.put("series-name",ser.text());
            resultMap.put("series",ser.child(0).attr("href").substring(8));
 
@@ -39,6 +41,7 @@ public class BotoLoadSeries extends AbstractMangaScrapper{
              Map chap = new HashMap();
              chap.put("chaptext",chapter.getElementsByClass("chapt").text());
              chap.put("chaplink",chapter.getElementsByClass("chapt").attr("href").substring(9));
+             chap.put("chapdate",chapter.getElementsByTag("i").get(0).text());
 
              chaplist.add(chap);
          }
