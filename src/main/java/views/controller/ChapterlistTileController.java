@@ -11,6 +11,7 @@ import scrapmodel.MangaFetcherFactory;
 import scrapmodel.QueryException;
 import views.MangaMain;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,8 @@ public class ChapterlistTileController {
 
     @FXML
     private Text chapter_no_textView;
+
+
 
     @FXML
     private Text date_textView;
